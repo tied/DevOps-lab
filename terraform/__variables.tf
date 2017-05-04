@@ -13,3 +13,19 @@ variable public_subnets {
 variable availability_zones {
   default = ["ap-southeast-2a","ap-southeast-2b","ap-southeast-2c"]
 }
+
+variable ami {
+  default = "ami-96666ff5" // Ubuntu Zesty Instance Store
+}
+
+variable egress_rules {
+  default = []
+}
+
+variable ingress_rules {
+  default = ["tcp,22,22,0.0.0.0/24"]
+}
+
+variable key_name {
+  default = "stan"
+}
