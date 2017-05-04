@@ -3,34 +3,21 @@ StreamCo DevOps Lab
 
 Technical assessment for DevOps candidates.
 
-
-Overview
-==========
-
-The purpose of this lab is to assess your skills and approach to automated provisioning, deployment and configuration management.
-
-We ask you to complete the Basic Goals below and deliver the outputs requested.
-
-Additional Challenges are available if you have time and want to show us what you can do.
-
-Completing the basic goals in an automated, working, reliable, reproducible way is preferable to completing any of the additional challenges.  Be sure to give thought in explaining what further improvements you would make given more time.
-
-
 Basic Goals
 ==========
 
-* Using AWS Cloudformation, automate the deployment of secure, publicly available HA Load-Balanced Web Servers that return the instance id of the host that served the request.
-* Ensure that the web servers are available in two AWS availability zones and will automatically rebalance themselves if there is no healthy web server instance in either availability zone.
-* Redirect any HTTP requests to HTTPS. Self-signed certificates are acceptable.
-* Answer the question: "How would you further automate the management of the infrastructure if given unlimited time and resource?"
+[ ] Using AWS Cloudformation, automate the deployment of secure, publicly available HA Load-Balanced Web Servers that return the instance id of the host that served the request.
+[ ] Ensure that the web servers are available in two AWS availability zones and will automatically rebalance themselves if there is no healthy web server instance in either availability zone.
+[ ] Redirect any HTTP requests to HTTPS. Self-signed certificates are acceptable.
+[ ] Answer the question: "How would you further automate the management of the infrastructure if given unlimited time and resource?"
 
 Additional Challenges:
 ==========
 
-* Drive the deployment with Puppet.
-* Provide basic automated tests to cover included scripts, templates, manifests, recipes, code etc.
-* Redirect any 404 errors to a custom static page.
-* Add a Database to your automation and have your application serve the data stored in addition to the instance ID.
+[ ] Drive the deployment with Puppet.
+[ ] Provide basic automated tests to cover included scripts, templates, manifests, recipes, code etc.
+[ ] Redirect any 404 errors to a custom static page.
+[ ] Add a Database to your automation and have your application serve the data stored in addition to the instance ID.
 
 Output
 ==========
