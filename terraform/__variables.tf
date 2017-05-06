@@ -1,15 +1,17 @@
-variable private_subnets {
-  default = ["172.31.0.0/24", "172.31.1.0/24"]
-}
+# Network Variables
+variable vpc_id {}
+variable private_subnets { default = [] }
+variable public_subnets { default = [] }
+variable availability_zones { default = [] }
 
-variable public_subnets {
-  default = ["172.31.10.0/24", "172.31.11.0/24"]
-}
+# Availability Zone
+variable app_vm_size { }
+variable app_ami { }
+variable app_key_name { }
+variable app_egress_rules { default = [] }
+variable app_ingress_rules { default = [] }
 
-variable availability_zones {
-  default = ["ap-southeast-1a","ap-southeast-1b",]
-}
-
-variable vpc_id {
-  default = "vpc-9dbf1ff8"
-}
+# LB Variables
+variable ssl_cert_arn    { }
+variable lb_egress_rules { default = [] }
+variable lb_ingress_rules { default = [] }
