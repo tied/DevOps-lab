@@ -13,7 +13,7 @@ services:
     links:
       - app
   app:
-    build: ./demoapp/
+    image: rorychatt/example-app-flask:latest
     container_name: app
     expose:
       - "8000"
