@@ -16,7 +16,7 @@ Additional Challenges:
 
 - [ ] Drive the deployment with Puppet.
 - [ ] Provide basic automated tests to cover included scripts, templates, manifests, recipes, code etc.
-- [ ] Redirect any 404 errors to a custom static page.
+- [x] Redirect any 404 errors to a custom static page.
 - [ ] Add a Database to your automation and have your application serve the data stored in addition to the instance ID.
 
 Output

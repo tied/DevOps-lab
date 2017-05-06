@@ -1,0 +1,17 @@
+
+body {
+  background-color: #fbfbf9
+}
+
+p, .contact-links {
+  text-align: center;
+}
+
+
+p {
+  color: #07889B
+}
+
+a, a:visited {
+  color: #E37222
+}

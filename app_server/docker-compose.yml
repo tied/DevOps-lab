@@ -1,0 +1,19 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/static/:/var/www/static:ro
+    depends_on:
+      - app
+    links:
+      - app
+  app:
+    build: ./demoapp/
+    container_name: app
+    expose:
+      - "8000"
