@@ -13,22 +13,32 @@ Technical assessment for DevOps candidates.
 
 *All Virtual Machines, Databases and Load balancers are pubically available for testing. These can be closed down with NSGs quite easily in the future*
 ***
-### App Deployment Overview:
-- Infrastructure is orchestrated with CloudFormation / Terraform.
-- Puppet is bootstrapped onto the vm using aws userdata
-- Puppet installs and manages docker
-- Docker-Compose Runs Nginx + App Server
-- RDS runs Postgres db
 
-You can see my extremely simple flask app that returns instance_id & a table from a postgres database in **/demoapp/**
+## Deployment Overview:
 
+The final deployment is:
+	- Autoscaling Group - Spanning 2 Subnets. Configured to only have 2 servers Min/Max/Desired with no scaling.
+		- Userdata bootstraps Puppet. Puppet installs Docker, Docker Compose and launches 2 containers
+		  - Nginx: Passes data to the App Server container.
+			- Flask App Server (w' gunicorn): Returns two simple pages:
+			 	- Homepage that returns instance ID by curling the metadata uri (http://169.254.169.254/latest/meta-data/instance-id). Page also returns results from RDS Postgres DB in a table. App can be found in **/demoapp/** and is deployed to dockerhub as rorychatt/simple-flask-app
+				- Custom 404
+				- SECRETS ARE IN CODE. I would never do this in production, but haven't setup a CI pipeline to handle encryption and deployment. This was the quickest way to get up and running.
+	- Application Load Balancer
+		- Accepts traffic on 80 & 443, passing both back to port 8000 on the app servers
+		- Port 80 traffic is 301'd to 443 using Nginx on the app server
+		- Health Checks on port 9000 on the app server (This port is open to the intranet for the lab, but can be locked down to the ELB NSG easily). Healthcheck is 3 Healthy, 2 unhealthy.
+	- Postgres RDS deployment: Multi-AZ. 100g storage (minimum) & t2.micro instances across both subnets
+	- Route 53 subdomains - stan.rorychatterton.com & db.stan.rorychatterton.com
+
+### CloudFormation
 Cloudformation template is in **/CloudFormation/**.
-
-
-##### Note:
 The Cloudformation template only covers the *basic* 2 ALB load balanced application.
 
-I have also included a terraform template to tackle the "additional" goals section, as I have significantly more experience with the Terraform syntax language in previous roles. It was much quicker for me to prototype in a language I'm familiar, and find the TF syntax system much nicer to work with. If you would like me to fully flesh out the Cloudformation, let me know.
+### Terraform
+Terraform templates are in **/Terraform/**
+
+I have significantly more experience with Terraform from previous work. It was much quicker for me to prototype using the tool. If you absolutely need me to refactor my terraform code into a fuller CloudFormation document, let me know.
 
 Basic Goals
 ==========
