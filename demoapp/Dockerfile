@@ -3,7 +3,7 @@ FROM alpine
 MAINTAINER Rory Chatterton "rorychatt@gmail.com"
 
 # Get PIP, Python & Build Essentials
-RUN apk add --no-cache bash git python3 \
+RUN apk add --no-cache bash git python3 python3-dev py3-psycopg2  \
 	&& python3 -m ensurepip  \
 	&& rm -r /usr/lib/python*/ensurepip \
 	&& pip3 install --upgrade pip \
