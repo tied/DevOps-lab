@@ -17,19 +17,19 @@ Technical assessment for DevOps candidates.
 ## Deployment Overview:
 
 The final deployment is:
-	- Autoscaling Group - Spanning 2 Subnets. Configured to only have 2 servers Min/Max/Desired with no scaling.
-		- Userdata bootstraps Puppet. Puppet installs Docker, Docker Compose and launches 2 containers
-		  - Nginx: Passes data to the App Server container.
-			- Flask App Server (w' gunicorn): Returns two simple pages:
-			 	- Homepage that returns instance ID by curling the metadata uri (http://169.254.169.254/latest/meta-data/instance-id). Page also returns results from RDS Postgres DB in a table. App can be found in **/demoapp/** and is deployed to dockerhub as rorychatt/simple-flask-app
-				- Custom 404
-				- SECRETS ARE IN CODE. I would never do this in production, but haven't setup a CI pipeline to handle encryption and deployment. This was the quickest way to get up and running.
-	- Application Load Balancer
-		- Accepts traffic on 80 & 443, passing both back to port 8000 on the app servers
-		- Port 80 traffic is 301'd to 443 using Nginx on the app server
-		- Health Checks on port 9000 on the app server (This port is open to the intranet for the lab, but can be locked down to the ELB NSG easily). Healthcheck is 3 Healthy, 2 unhealthy.
-	- Postgres RDS deployment: Multi-AZ. 100g storage (minimum) & t2.micro instances across both subnets
-	- Route 53 subdomains - stan.rorychatterton.com & db.stan.rorychatterton.com
+- Autoscaling Group - Spanning 2 Subnets. Configured to only have 2 servers Min/Max/Desired with no scaling.
+	- Userdata bootstraps Puppet. Puppet installs Docker, Docker Compose and launches 2 containers
+	  - Nginx: Passes data to the App Server container.
+		- Flask App Server (w' gunicorn): Returns two simple pages:
+		 	- Homepage that returns instance ID by curling the metadata uri (http://169.254.169.254/latest/meta-data/instance-id). Page also returns results from RDS Postgres DB in a table. App can be found in **/demoapp/** and is deployed to dockerhub as rorychatt/simple-flask-app
+			- Custom 404
+			- SECRETS ARE IN CODE. I would never do this in production, but haven't setup a CI pipeline to handle encryption and deployment. This was the quickest way to get up and running.
+- Application Load Balancer
+	- Accepts traffic on 80 & 443, passing both back to port 8000 on the app servers
+	- Port 80 traffic is 301'd to 443 using Nginx on the app server
+	- Health Checks on port 9000 on the app server (This port is open to the intranet for the lab, but can be locked down to the ELB NSG easily). Healthcheck is 3 Healthy, 2 unhealthy.
+- Postgres RDS deployment: Multi-AZ. 100g storage (minimum) & t2.micro instances across both subnets
+- Route 53 subdomains - stan.rorychatterton.com & db.stan.rorychatterton.com
 
 ### CloudFormation
 Cloudformation template is in **/CloudFormation/**.
