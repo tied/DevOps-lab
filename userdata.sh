@@ -1,1 +1,7 @@
-curl https://github.com/rorychatt/sample-app-server/archive/master.zip | tar -xf- -C .
+#!/bin/bash
+
+mkdir /usr/puppetconfiguration
+cd /usr/puppetconfiguration
+apt-get update
+apt-get install git-core
+git clone https://github.com/rorychatt/Streamco-AppServer.git

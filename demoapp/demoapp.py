@@ -17,7 +17,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 # Queries the AWS Metadata endpoint for the instance_id
 def get_instance_id():
     try:
-        instance_id = requests.get("http://169.254.169.254/latest/meta-data/instance-id")
+        instance_id = requests.get("http://169.254.169.254/latest/meta-data/instance-id").text
     except OSError:
         instance_id = "Metadata endpoint unreachable. Are you running this on AWS?"
     return instance_id
