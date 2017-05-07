@@ -15,3 +15,7 @@ variable app_ingress_rules { default = [] }
 variable ssl_cert_arn    { }
 variable lb_egress_rules { default = [] }
 variable lb_ingress_rules { default = [] }
+
+# DB Variables
+variable db_egress_rules { default = [] }
+variable db_ingress_rules { default = [] }

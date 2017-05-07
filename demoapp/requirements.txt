@@ -14,3 +14,7 @@ pyparsing
 setuptools
 six
 requests
+Flask
+psycopg2
+Flask-SQLAlchemy
+Flask-Migrate

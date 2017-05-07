@@ -6,6 +6,9 @@ resource "aws_launch_configuration" "as_conf" {
   instance_type = "${var.app_vm_size}"
   associate_public_ip_address = true
   key_name      = "${var.app_key_name}"
+  security_groups = ["${module.app_nsg.nsg_id}"]
+
+  user_data     = "${file("./userdata.sh")}"
 
   root_block_device {
     volume_type = "gp2"
@@ -25,7 +28,7 @@ resource "aws_autoscaling_group" "as_group" {
   min_size             = 2
   max_size             = 2
 
-  health_check_grace_period = 300
+  health_check_grace_period = 500
   health_check_type         = "ELB"
 
   availability_zones   = "${var.availability_zones}"

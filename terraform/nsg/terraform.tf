@@ -22,12 +22,12 @@ resource "aws_security_group_rule" "ingress_rules" {
 }
 
 resource "aws_security_group_rule" "egress_rules" {
-  count           = "${length(var.ingress_rules)}"
+  count           = "${length(var.egress_rules)}"
   type            = "egress"
-  protocol        = "${element(split(",", element(var.ingress_rules, count.index)), 0)}"
-  from_port       = "${element(split(",", element(var.ingress_rules, count.index)), 1)}"
-  to_port         = "${element(split(",", element(var.ingress_rules, count.index)), 2)}"
-  cidr_blocks     = ["${element(split(",", element(var.ingress_rules, count.index)), 3)}"]
+  protocol        = "${element(split(",", element(var.egress_rules, count.index)), 0)}"
+  from_port       = "${element(split(",", element(var.egress_rules, count.index)), 1)}"
+  to_port         = "${element(split(",", element(var.egress_rules, count.index)), 2)}"
+  cidr_blocks     = ["${element(split(",", element(var.egress_rules, count.index)), 3)}"]
 
   security_group_id = "${aws_security_group.app_server_nsg.id}"
 }

@@ -1,5 +1,4 @@
 # Application Load
-
 resource "aws_alb" "front_end" {
   name            = "app-alb"
   internal        = false
@@ -27,6 +26,17 @@ resource "aws_alb_listener" "front_end" {
   }
 }
 
+resource "aws_alb_listener" "front_end_nossl" {
+  load_balancer_arn = "${aws_alb.front_end.arn}"
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    target_group_arn = "${aws_alb_target_group.front_end.arn}"
+    type             = "forward"
+  }
+}
+
 resource "aws_alb_target_group" "front_end" {
   name     = "app-target-group"
   port     = 8000
@@ -39,9 +49,17 @@ resource "aws_alb_target_group" "front_end" {
 module "lb_nsg" {
   source = "./nsg"
 
-  name          = "app_alb"
+  name          = "app_alb_nsg"
   description   = "StreamCo Application ELB NSG"
 
   ingress_rules = ["${var.lb_ingress_rules}"]
   egress_rules  = ["${var.lb_egress_rules}"]
+}
+
+resource "aws_route53_record" "stan" {
+  zone_id = "ZF0V6KEURF4LN"
+  name    = "stan.rorychatterton.com"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["${aws_alb.front_end.dns_name}"]
 }
