@@ -18,6 +18,7 @@ Technical assessment for DevOps candidates.
 - Puppet is bootstrapped onto the vm using aws userdata
 - Puppet installs and manages docker
 - Docker-Compose Runs Nginx + App Server
+- RDS runs Postgres db
 
 You can see my extremely simple flask app that returns instance_id & a table from a postgres database in **/demoapp/**
 
