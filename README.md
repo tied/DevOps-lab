@@ -67,7 +67,7 @@ Additional Challenges:
 	rspec in puppet folder.
 
 - [x] Redirect any 404 errors to a custom static page.
-    - https://streamco-test.rorychatterton.com/this_url_will_fail
+    - https://stan.rorychatterton.com/this_url_will_fail
 
 - [x] Add a Database to your automation and have your application serve the data stored in addition to the instance ID.
 
