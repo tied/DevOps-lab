@@ -3,28 +3,35 @@ StreamCo DevOps Lab
 
 Technical assessment for DevOps candidates.
 
-App url https://stan.rorychatterton.com
-api key in email.
+**App url**: https://stan.rorychatterton.com
 
-vm ips: 54.179.156.179, 52.221.198.24
+**VM ips**: 54.179.156.179, 52.221.198.24
 
-DB URL: db.stan.rorychatterton.com
-vms and machines Publically accessible for dev testing. would close down with nsg in prod.
+**DB URL**: db.stan.rorychatterton.com
 
-App Deployment:
-Cloudformation/terraform uses userdata to bootstrap puppet (pulling config from git as I don't have Puppet Enterprise).
-Puppet installs and manages docker + local firewall
-Docker-Compose Runs Nginx + App Server
+**App Server Code**: https://github.com/rorychatt/Streamco-AppServer
 
-App Server Configuration that gets pulled down by the userdata sits in another git repository:
-https://github.com/rorychatt/Streamco-AppServer
+*All Virtual Machines, Databases and Load balancers are pubically available for testing. These can be closed down with NSGs quite easily in the future*
+***
+### App Deployment Overview:
+- Infrastructure is orchestrated with CloudFormation / Terraform.
+- Puppet is bootstrapped onto the vm using aws userdata
+- Puppet installs and manages docker
+- Docker-Compose Runs Nginx + App Server
 
-You can see my extremely simple flask app that returns instance_id & a table from a postgres database in /demoapp/
+You can see my extremely simple flask app that returns instance_id & a table from a postgres database in **/demoapp/**
+
+Cloudformation template is in **/CloudFormation/**.
+
+
+##### Note:
+The Cloudformation template only covers the *basic* 2 ALB load balanced application.
+
+I have also included a terraform template to tackle the "additional" goals section, as I have significantly more experience with the Terraform syntax language in previous roles. It was much quicker for me to prototype in a language I'm familiar, and find the TF syntax system much nicer to work with. If you would like me to fully flesh out the Cloudformation, let me know.
 
 Basic Goals
 ==========
 - [x] Using AWS Cloudformation, automate the deployment of secure, publicly available HA Load-Balanced Web Servers that return the instance id of the host that served the request.
-	- Cloudformation template in /CloudFormation/ . This configuration only covers the basic 2 ALB load balanced application. I have build in the more complicated additional challenges logic into a Terraform configuration found in /terraform/. It was much quicker for me to prototype in a language I'm familiar, and find the TF syntax system much nicer to work with. If you would like me to fully flesh out the Cloudformation, let me know.
 - [x] Ensure that the web servers are available in two AWS availability zones and will automatically rebalance themselves if there is no healthy web server instance in either availability zone.
 - [x] Redirect any HTTP requests to HTTPS. Self-signed certificates are acceptable.
 - [x] Answer the question: "How would you further automate the management of the infrastructure if given unlimited time and resource?"
@@ -44,8 +51,6 @@ Additional Challenges:
 ==========
 
 - [x] Drive the deployment with Puppet.
-		Puppet Master @ https://puppet.rorychatterton.com
-		driven using a mix of puppet & Docker
 
 - [x] Provide basic automated tests to cover included scripts, templates, manifests, recipes, code etc.
 	rspec in puppet folder.
