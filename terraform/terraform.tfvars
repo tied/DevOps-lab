@@ -8,7 +8,7 @@ availability_zones = ["ap-southeast-1a", "ap-southeast-1b"]
 app_vm_size        = "t2.micro"
 app_ami            = "ami-0a19a669"
 app_egress_rules   = ["tcp,0,65535,0.0.0.0/0",]
-app_ingress_rules  = ["tcp,22,22,0.0.0.0/0","tcp,8000,8000,0.0.0.0/0"]
+app_ingress_rules  = ["tcp,22,22,0.0.0.0/0","tcp,8000,8000,0.0.0.0/0", "tcp,9000,9000,0.0.0.0/0"]
 app_key_name       = "pair2"
 
 # LB Variables

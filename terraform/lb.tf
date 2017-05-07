@@ -42,6 +42,15 @@ resource "aws_alb_target_group" "front_end" {
   port     = 8000
   protocol = "HTTP"
   vpc_id   = "${var.vpc_id}"
+
+  health_check {
+    interval = 30
+    path = "/"
+    port = 9000
+    timeout = 5
+    healthy_threshold = 3
+    unhealthy_threshold = 4
+  }
 }
 
 

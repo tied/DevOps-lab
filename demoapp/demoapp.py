@@ -6,17 +6,21 @@
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.debug import DebuggedApplication
+
 import requests
 import os
 
 
 app = Flask(__name__)
 
+
 # DB Config
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://streamco_test:streamco!23@db.stan.rorychatterton.com/flaskapp"
 
 db = SQLAlchemy(app)
+
 
 # Data Model
 class Result(db.Model):
@@ -54,8 +58,8 @@ def get_instance_id():
 def hello_world():
 
     instance_id = get_instance_id()  # Get AWS Instance ID
-
-    return render_template('homepage.html', instance_id=instance_id, Results=Result.query.order_by('-id'))
+    results=Result.query.order_by('-id')
+    return render_template('homepage.html', instance_id=instance_id) #Results=results)
 
 
 # Custom 404 error handler
@@ -73,6 +77,7 @@ def addItems():
     instance_id = get_instance_id()  # Get AWS Instance ID
     return render_template('homepage.html', instance_id=instance_id, Results=Result.query.order_by('-id'))
 
+
 # Start App
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
