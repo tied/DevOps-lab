@@ -4,22 +4,15 @@
 
 # Imports
 from flask import Flask, render_template
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.contrib.fixers import ProxyFix
-from werkzeug.debug import DebuggedApplication
-
 import requests
-import os
-
 
 app = Flask(__name__)
 
-
 # DB Config
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://streamco_test:streamco!23@db.stan.rorychatterton.com/flaskapp"
-
 db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://streamco_test:streamco!23@db.stan.rorychatterton.com/flaskapp"
 
 
 # Data Model
@@ -38,6 +31,7 @@ class Result(db.Model):
     def store_to_db(self):
         db.session.add(self)
         db.session.commit()
+
 
 # Fixes errors associated with headers from proxied nginx
 # http://werkzeug.pocoo.org/docs/0.12/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix
@@ -58,8 +52,8 @@ def get_instance_id():
 def hello_world():
 
     instance_id = get_instance_id()  # Get AWS Instance ID
-    results=Result.query.order_by('-id')
-    return render_template('homepage.html', instance_id=instance_id) #Results=results)
+    results = Result.query.order_by('id')
+    return render_template('homepage.html', instance_id=instance_id, Results=results)
 
 
 # Custom 404 error handler
@@ -75,7 +69,7 @@ def addItems():
         r.store_to_db()
 
     instance_id = get_instance_id()  # Get AWS Instance ID
-    return render_template('homepage.html', instance_id=instance_id, Results=Result.query.order_by('-id'))
+    return render_template('homepage.html', instance_id=instance_id, Results=Result.query.order_by('id'))
 
 
 # Start App

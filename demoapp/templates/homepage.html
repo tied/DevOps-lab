@@ -2,55 +2,71 @@
 <html lang="en">
 <head>
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Homepage - StreamCo Test</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Homepage - StreamCo Test</title>
+    <meta name="description" content="StreamCo Website for DevOps Role">
+    <meta name="author" content="Rory Chatterton">
 
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
 
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="http://getskeleton.com/css/custom.css">
+
+
 
 </head>
-<body>
+<body class="code-snippets-visible">
 
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-    <div class="row">
-        <h1>Rory's StreamCo Test</h1>
-        <p><b>Instance Serving Request:</b> {{ instance_id }}</p>
-
-        <h2>Database Data</h2>
-        <table class="table table-hover">
-          <tr>
-            <th>#
-            <th>Text
-          {%- for Result in Results %}
-          <tr>
-              <td>{{ Result.id }}</td>
-              <td>{{ Result.text }}</td>
-          {%- endfor %}
-        </table>
-    <p>
-
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<div class="container">
+    <section class="header" style="margin-bottom: 10rem;">
+        <h2 class="title">Rory's StreamCo Test</h2>
+        <a class="button button-primary" href="https://github.com/rorychatt/streamco-lab">Orchestration Github</a> <a
+            class="button button-primary" href="https://github.com/rorychatt/Streamco-AppServer">App Server
+        Github</a>
+    </section>
+    <div class="docs-section" id="intro">
+        <h6 class="docs-header">What is my Instance ID?</h6>
+        <p>{{ instance_id }}</p>
     </div>
-  </div>
+
+    <div class="docs-section" id="tables">
+        <h6 class="docs-header">Database Connectivity</h6>
+        <p>The following data is loaded from a postgres database</p>
+        <table class="u-full-width">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Text</th>
+            </tr>
+            </thead>
+
+
+            {%- for Result in Results %}
+                <tbody>
+                <tr>
+                    <td>{{ Result.id }}</td>
+                    <td>{{ Result.text }}</td>
+                </tr>
+                </tbody>
+            {%- endfor %}
+
+        </table>
+    </div>
+</div>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
