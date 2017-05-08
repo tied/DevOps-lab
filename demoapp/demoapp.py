@@ -11,9 +11,9 @@ import requests
 app = Flask(__name__)
 
 # DB Config
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://streamco_test:streamco!23@db.stan.rorychatterton.com/flaskapp"
-
+db = SQLAlchemy(app)
 
 # Data Model
 class Result(db.Model):
@@ -31,7 +31,6 @@ class Result(db.Model):
     def store_to_db(self):
         db.session.add(self)
         db.session.commit()
-
 
 # Fixes errors associated with headers from proxied nginx
 # http://werkzeug.pocoo.org/docs/0.12/contrib/fixers/#werkzeug.contrib.fixers.ProxyFix
